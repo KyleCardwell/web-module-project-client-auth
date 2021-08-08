@@ -12,6 +12,9 @@ function NavBar(props) {
               <li>
                 <Link onClick={props.logout}>Logout</Link>
               </li>
+              <li>
+                <Link to='/addFriend'>Add Friend</Link>
+              </li>
             </ul>
           </div>
     )

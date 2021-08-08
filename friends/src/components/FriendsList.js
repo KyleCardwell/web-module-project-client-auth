@@ -14,10 +14,12 @@ function FriendsList(props) {
         })
             .then(res => {
 
-                setFriends(res.data)
+                if(friends.length === 0) {
+                    setFriends(res.data)
+                }
             })
             .catch(err => console.log(err.response.data.error))
-    },[])
+    })
 
 
     return (
