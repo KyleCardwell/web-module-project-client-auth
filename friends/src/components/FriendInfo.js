@@ -5,7 +5,7 @@ function FriendInfo(props) {
 
     let { id } = useParams();
 
-    const showFriend = props.friends.find(friend => friend.id === parseInt(id))
+    const showFriend = props.friends.find(friend => friend.id == id)
 
     return (
         <div>

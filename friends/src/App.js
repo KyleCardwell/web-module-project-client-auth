@@ -1,19 +1,17 @@
 import './App.css';
 import Login from './components/Login';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import FriendsList from './components/FriendsList';
-import { axiosWithAuth } from './utils/axiosWithAuth';
-import axios from 'axios';
 import FriendInfo from './components/FriendInfo';
 import React, { useState } from 'react'
-import AddFriend from './components/AddFriend';
 import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
 
   const [ friends, setFriends ] = useState([])
+  const [showAddFriend, setShowAddFriend ] = useState(false)
 
   const logout = () => {
 
@@ -27,7 +25,11 @@ function App() {
       <header className="App-header">
         <Router>
 
-          <NavBar logout={logout}/>
+          <NavBar
+            logout={logout}
+            showAddFriend={showAddFriend}
+            setShowAddFriend={setShowAddFriend}
+          />
 
           <Switch>
 
@@ -36,14 +38,17 @@ function App() {
             </Route>
 
             <PrivateRoute exact path="/friends"
-              component={() => <FriendsList friends={friends} setFriends={setFriends}/>}
+              component={() => <FriendsList
+                showAddFriend={showAddFriend}
+                friends={friends}
+                setFriends={setFriends}
+              />}
             />    
-
-            <PrivateRoute exact path="/addFriend"
-              component={() => <AddFriend friends={friends} setFriends={setFriends}/>}
-            />       
             
-            <Route path='/friends/:id' children={<FriendInfo friends={friends}/>} />
+            <PrivateRoute
+              path='/friends/:id'
+              children={<FriendInfo friends={friends}/>}
+            />
 
           </Switch>
           

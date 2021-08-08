@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Friend from './Friend';
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import AddFriend from './AddFriend';
 
 function FriendsList(props) {
 
-    const { friends, setFriends } = props
+    const { friends, setFriends, showAddFriend} = props
 
     useEffect(() => {
         axiosWithAuth().get('/friends', {
@@ -19,11 +20,14 @@ function FriendsList(props) {
                 }
             })
             .catch(err => console.log(err.response.data.error))
-    })
+    },[])
 
 
     return (
         <div>
+
+            {showAddFriend === true ? <AddFriend {...props}/> : ""}
+
             {friends.map(friend => {
                 return (
                     <Friend
